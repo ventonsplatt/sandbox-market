@@ -8,9 +8,9 @@ public class Main {
     Item item1 = new Item("A Cheese sandwich");
     Item item2 = new Item("A ham sandwich");
     Item item3 = new Item("An egg sandwich");
-    Item item4 = new Item("A houmus sandwich");
-    Item item5 = new Item("A beef sandwich");
-    Item item6 = new Item("An empty sandwich");
+    Item item4 = new Item("A hummus sandwich");
+    Item item5 = new Item("A Cheese sandwich");
+    Item item6 = new Item("A Cheese sandwich");
     Item item7 = new Item("A cheese and tomato sandwich");
 
     item1.setItemPrice(23.5d);
@@ -38,6 +38,9 @@ public class Main {
             System.out.println("Warehouse location: " + warehouse1.getWarehouseLocation(i));
             System.out.println("contains " + warehouse1.getWarehouseItem(i).getItemName());
         }
+
+        // find a cheese sandwich
+        System.out.println("looking for cheese:" + warehouse1.getStockCount("A Cheese sandwich"));
 
     }
 
