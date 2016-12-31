@@ -68,7 +68,13 @@ public class Main {
         System.out.println("end of item indexes");
 
         // moving an item
-        warehouse1.moveWarehouseItem(warehouse1.getItemIndex("A Cheese sandwich", 3), "a house");
+
+        // check
+        System.out.println("locationindex" + warehouse1.getWarehouseLocationIndex("Location50"));
+        System.out.println(warehouse1.getItemIndex("A Cheese sandwich", 4));
+
+        //warehouse1.moveWarehouseItem("A Cheese sandwich", 4, "Location50");
+        System.out.println(warehouse1.getItemIndex("A Cheese sandwich",4));
 
 
     }

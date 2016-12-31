@@ -16,6 +16,7 @@ public class Warehouse {
         // there are 500 locations in the warehouse
         for (int i =0; i < 500; i++){
             warehouseLocations.add("Location" + Integer.toString(i));
+            System.out.println(getWarehouseLocation(i));
         }
     }
 
@@ -32,18 +33,26 @@ public class Warehouse {
         // returns the item location name
         return warehouseLocations.get(itemIndex);
     }
+    public String getWarehouseLocationName(int itemIndex){
+        // returns the name of the location
+        return warehouseLocations.get(itemIndex);
+    }
+
     public int getWarehouseLocationIndex(String warehouseLocation){
         // returns the index based on inputted warehouse location
         for(int i =0; i < 500; i++) {
-            if (getWarehouseLocation(i) == warehouseLocation) {
+            //System.out.println("Trying to match:" + getWarehouseLocationName(i));
+            //System.out.println("With:           " + warehouseLocation);
+            if (getWarehouseLocationName(i).equals(warehouseLocation)) {
                 // matching location found
+                System.out.println("Found matching location" + getWarehouseLocationName(i) );
                 return i;
-            } else {
-                // no matching location
-                return -1;
             }
+
         }
-    return 0;
+        // no matching location
+        System.out.println("ERROR: no matching location found");
+        return -1;
     }
 
     public void addWarehouseItem(Item item){
@@ -55,28 +64,43 @@ public class Warehouse {
         warehouseItems.set(itemIndex, myEmptyItem); //put an empty thing in it
     }
 
-  public void moveWarehouseItem(int itemIndex, String newLocation) {
+  public void moveWarehouseItem(String itemName, int itemOccurrence, String newLocation) {
       // check that: a: searched item exists
       //             b: stocklocation is available
 
-      //if((warehouseItems.get(itemIndex).getItemName() == itemName) && )
-      // Item myEmptyItem = new Item("");
-      System.out.println("moving item from slot:" + itemIndex);
+      if (getItemIndex(itemName, itemOccurrence) == -1){    //error code
+          // no item found
+          System.out.println("ERROR: no matching item found");
+      }
+      else{
+          // item found
+          System.out.println("moving item from slot:" + getItemIndex(itemName, itemOccurrence));
+
+          // get slot id from newLocation
+          if(getWarehouseLocationIndex(newLocation) == -1){  //error code
+              System.out.println("ERROR: no matching location found for " + newLocation);
+          }
+          else{
+              // set item to new location and insert empty object in its place
+              warehouseItems.set(getWarehouseLocationIndex(newLocation), getWarehouseItem(getItemIndex(itemName, itemOccurrence)));
+
+              //insert empty object in its place
+              removeWarehouseItem(getItemIndex(itemName, itemOccurrence));
+          }
+
+      }
 
   }
 
-
-
-        //warehouseItems.set(itemIndex, myEmptyItem); //put an empty thing in it
-    //}
 
     public int getItemIndex(String itemName, int targetItemInstance) {
         // this helper function simply returns the nth itemIndex for the search time
         int itemInstance = 0;
         int itemIndex = 0;
-        System.out.println("Looking for " + targetItemInstance + "th item");
+        System.out.print("Looking for " + targetItemInstance + "th item of " );
+        System.out.println(itemName);
 
-        for (int i = 0; i <= warehouseItems.size(); i++) {
+        for (int i = 0; i < warehouseItems.size(); i++) {
             // check if name matches and  increment itemInstance count
             if (warehouseItems.get(i).getItemName() == itemName) {
                 itemInstance += 1;
@@ -87,12 +111,10 @@ public class Warehouse {
                 if(itemInstance == targetItemInstance){
                     return itemIndex;
                 }
-            } else {
-                System.out.println("") ;
-                //System.out.println("Not matched...Current value of i:" + i);
             }
         }
-    return 0;
+        System.out.println("ERROR: no matching item");
+        return -1;
     }
 
         public int getStockCount(String itemName) {
