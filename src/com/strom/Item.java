@@ -13,7 +13,6 @@ public class Item {
     public BigInteger sku = generateSKU();
     public String itemName;
     public double itemPrice;
-    private String stockLocation;
 
     // initalisation
     {

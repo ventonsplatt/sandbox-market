@@ -16,11 +16,15 @@ public class Warehouse {
         // there are 500 locations in the warehouse
         for (int i =0; i < 500; i++){
             warehouseLocations.add("Location" + Integer.toString(i));
-            System.out.println(getWarehouseLocation(i));
+            //System.out.println(getWarehouseLocation(i));
+        // populate each warehouseItems slot with an empty object
+            Item myEmptyItem = new Item("");
+            warehouseItems.add(myEmptyItem);
         }
     }
 
     public int getWarehouseItemCount() {
+        // returns size of array
         return warehouseItems.size();
     }
 
@@ -56,7 +60,16 @@ public class Warehouse {
     }
 
     public void addWarehouseItem(Item item){
-        warehouseItems.add(item);
+      // the item should be placed in the first empty slot
+        for(int i =0; i < 500; i++) {
+            if(warehouseItems.get(i).getItemName().equals("")){
+                // this item is empty
+                warehouseItems.set(i, item);
+                System.out.println("put item in slot:" + i);
+                break;
+            }
+        }
+
     }
 
     public void removeWarehouseItem(int itemIndex){
